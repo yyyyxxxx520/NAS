@@ -1,0 +1,32 @@
+<!DOCTYPE html>  
+<html>  
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>  
+<title>在线预览PDF文档</title>  
+
+<script type="text/javascript" src="/static/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.media.js"></script>
+    <style>
+        .media{
+            width: 100%;
+        }
+    </style>
+<script type="text/javascript">  
+    $(function() {
+        let cliwidth = document.documentElement.clientWidth;
+        let cliheight = document.documentElement.clientHeight - 25;
+        $('a.media').media({width:cliwidth, height:cliheight});
+        $('a.mediase').media({width:cliwidth, height:cliheight});
+    });
+</script> 
+
+</head>
+<body>
+<center>
+ <div class="panel panel-primary">
+   <div class="panel-body">
+	  <a class="media" href="{{ url }}"></a>
+   </div>
+</center>
+</body>
+</html>

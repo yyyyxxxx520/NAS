@@ -1,0 +1,292 @@
+* {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border: none;
+    user-select: none;
+}
+
+li {
+    list-style: none
+}
+
+em {
+    font-style: normal;
+    color: red;
+    cursor: pointer;
+}
+.container{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0!important;
+    padding: 30px;
+}
+.container .item {
+    min-width: 400px;
+    max-width: 400px;
+    height: 350px;
+    margin: 5px;
+    border: 1px black dotted;
+    flex: 1;
+}
+
+.upload-btn {
+    margin: 10px auto;
+}
+
+.preview,.base_preview {
+    width: 200px;
+    height: 200px;
+    border: 1px #8b8b8b dotted;
+    margin: 20px auto;
+    line-height: 198px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.preview img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.upload-info {
+    display: none
+}
+.upload-btn .btn{border:none!important;outline: none!important;}
+.btn-disabled{
+    background-color: #8c8c8c!important;
+    cursor: not-allowed!important;
+    pointer-events: none;
+}
+.btn-loading{
+    pointer-events: none;
+    background-color: #8c8c8c!important;
+    position: relative;
+    width: 80px;
+    text-align: right;
+}
+.btn-loading:after{
+    content: '';
+    position: absolute;
+    top:5px;
+    left: 1px;
+    display: block;
+    width: 18px;
+    height: 18px;
+    background: url("/static/view_image/加载中.gif") no-repeat center center;
+    background-size: 18px auto;
+}
+.progress_bar{
+    width: 100%;
+    height: 20px;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    display: none;
+}
+.progress_container{
+    width: 70%;
+    height: 8px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress_value{
+    height: 100%;
+    width: 0;
+    background-color: green;
+}
+.progress_bar span{
+    min-width: 60px;
+}
+.multifile{
+    width: 80%;
+    height: 200px;
+    margin: 20px auto;
+    padding: 0!important;
+    border: #8c8c8c solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    overflow: auto;
+}
+.multifile::-webkit-scrollbar{
+    width: 0;
+    color: #8c8c8c;
+}
+.multifile-info{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    border-bottom: #8c8c8c dotted 1px;
+    margin: 0 auto;
+    padding: 5px;
+    height: 40px;
+}
+.multifile-info * {
+    font-size: 12px;
+}
+.multifile-info li{
+    display: flex;
+    justify-content: flex-start;
+}
+.multifile-info li i,em {
+    font-style: normal;
+    width: 15%;
+}
+.multifile-info li span{
+    text-align: left;
+    width: 70%;
+}
+.multifile-progress{
+    display: flex;
+}
+.multifile-container{
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+}
+.multifile-progress span{
+    width: 15%;
+}
+
+.drag{
+    width: 80%;
+    height: 200px;
+    margin: 20px auto;
+    padding: 0!important;
+    border: #8c8c8c dotted 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+.drag-icon{
+    width: 68px;
+    height: 68px;
+    background: url("/static/view_image/上传云.png") no-repeat center center;
+    background-size: 68px auto;
+}
+.drag-tip{
+    height: 16px;
+    display: flex;
+    justify-content: center;
+}
+.drag-tip span,em{
+    /*text-align: left;*/
+    min-width: 60px;
+}
+/*.drag-tip em{*/
+/*    text-align: left;*/
+/*    color: #3893fe;*/
+/*}*/
+.drag-shade{
+    /*width: 100%;*/
+    /*height: 100%;*/
+    background-color: #9c9c9c;
+    position: relative;
+}
+.drag-shade:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: url("/static/view_image/加载中.gif") no-repeat center center;
+    background-size: 48px auto;
+}
+
+.big_bar{
+    width: 100%;
+    height: 20px;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    display: none;
+}
+.big_bar span{
+    min-width: 60px;
+}
+.big_container{
+    width: 70%;
+    height: 8px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.big_value{
+    height: 100%;
+    width: 0;
+    background-color: green;
+}
+.download_list{
+    width: 80%;
+    height: 200px;
+    margin: 20px auto;
+    padding: 0!important;
+    border: #8c8c8c solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    overflow: auto;
+}
+.download-list-info{
+    display: flex;
+}
+.download-list-info span{
+    flex: 1;
+    padding: 0 10px;
+    text-align: left;
+}
+.download-list-info i{
+    width: 15%;
+    font-style: normal;
+}
+.download-list-info em{
+    width: 15%;
+    color: #1e98d4;
+
+}
+.download_list::-webkit-scrollbar{
+    width: 0;
+    color: #8c8c8c;
+}
+.download-shadow{
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    top: 0;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    line-height: 100vh;
+    background-color: rgba(0,0,0,0.1);
+}
+.download-shadow span{
+    font-size: 22px;
+    color: #049cdb;
+    position: relative;
+}
+.download-shadow span:before{
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    left: -48px;
+    top: -12px;
+    background: url("/static/view_image/加载中.gif") no-repeat center center;
+    background-size: 48px auto;
+}

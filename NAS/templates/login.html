@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
+    <title>登录</title>
+    <link href="/static/css/bootstrap.min-3.4.0.css" rel="stylesheet">
+    <link href="/static/css/font-awesome-4.3.0.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style-2.2.0.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link href="/static/css/listStyle.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div class="form-signin">
+            <div id="stage">
+                <div id="inner">
+                    <div id="cover">
+                        <div id="text">
+                            <span style="color: cyan;">H</span><span style="color: white;">+</span>
+                        </div>
+                        <div id="detail"></div>
+                        <div id="handle"></div>
+                    </div>
+                    <canvas class="mb-4" id="live2d" width="800" height="800"></canvas>
+                </div>
+                <a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
+                <a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
+            </div>
+            <h3>欢迎登录</h3>
+
+            <form class="m-t" action="javascript:void(0)">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="username" type="phone" class="form-control"  autocomplete="off" placeholder="用户名" required="">
+                </div>
+
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <label class="error error_mes"></label>
+
+                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                <div class="form-group">
+                    <div class="checkbox i-checks">
+                        <span><a href="/register/">注册一个用户</a></span>
+                    </div>
+                </div>
+                <img src="/static/view_image/1.gif" style="width: 100%;">
+            </form>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/bootstrap.min-3.4.0.js"></script>
+    <script type="text/javascript">
+        function stop() {
+            return false;
+        }
+        document.oncontextmenu = stop;
+
+        $('button').click(function () {
+            var username = $('input[name=username]').val();
+            var password = $('input[name=password]').val();
+            if (username.length < 1 || password.length < 1){
+                return
+            }
+            else{
+                $.ajax({
+                    type:'post',
+                    data:{
+                        username: username,
+                        password: password,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                    success:function (result) {
+                        if(result['code'] == 1){
+                            window.location.href = result['url'];
+                        }
+                        else{
+                            $('.error_mes').text(result['mes']);
+                        }
+                    }
+                })
+            }
+        })
+
+    </script>
+    <script src="/static/js/live2d.min.js"></script>
+    <script src="/static/js/index.js"></script>
+</body>
+
+</html>

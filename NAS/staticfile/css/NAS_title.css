@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.title {
+    height: 60px;
+    /*background-color: #029be9;*/
+    display: flex;
+    padding: 0 30px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.title .user-info{
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.title .user-info >*{
+    margin: 0 10px;
+}
+.title .user-info .user-close{
+    color: #049cdb;
+    cursor: pointer;
+}
+
+.title .user-info .capacity-info{
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+
+}
+.title .user-info .capacity-info .capacity-number{
+    height: 70%;
+}
+.title .user-info .capacity-info .capacity-progress{
+    height: 30%;
+    background-color: #e7e7e7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.title .capacity-value{
+    height: 100%;
+    background-color: #06a7ff;
+}
+.title .transfer_list{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 13px;
+    border: rgba(0,0,0,0) dotted 1px;
+    padding: 0 5px;
+    cursor: pointer;
+    position: relative;
+}
+/*.title .transfer_list:hover{*/
+/*    border: grey dotted 1px;*/
+/*}*/
+.title .transfer_list>i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background: url("/static/view_image/传输列表.png") no-repeat center center;
+    background-size: 20px auto;
+}
+.title .transfer_list>span{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 5px;
+}
+.title .transfer_list .transfer{
+    position: absolute;
+    z-index: 9999;
+    top: 35px;
+    left: -496px;
+    width: 600px;
+    height: 500px;
+    cursor: auto;
+    background-color: rgba(255,255,255,1);
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 16%);
+    border-radius: 8px;
+    display: none;
+}
+.transfer_list .transfer-state{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0;
+    border-right: #8c8c8c 1px dotted;
+}
+.transfer-state>.active{
+    background-color: #c9fbf4;
+    color: #049cdb;
+    border-radius: 4px;
+}
+.transfer_list .transfer-state div{
+    height: 30px;
+    width: 100px;
+    margin: 10px 0;
+    padding: 0 10px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+.transfer-state>div>span{
+    font-size: 10px!important;
+    margin: 0!important;
+    font-weight: normal!important;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+}
+
+.transfer_list .transfer-progress{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.transfer_list .transfer-progress .progress-title{
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    padding: 0 20px;
+    border-bottom: #8c8c8c 1px dotted;
+}
+.transfer_list .transfer-progress .uploading-progress{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    overflow-y: scroll;
+}
+.transfer_list .transfer-progress .uploading-progress::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.transfer_list .uploading-progress .uploading-li{
+    min-height: 40px;
+    font-size: 14px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+.uploading-progress .uploading-li .uploading-file-info{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.uploading-li .uploading-file-info .file-name{
+    flex: 1;
+    max-width: 300px;
+    overflow-x: hidden;
+}
+.uploading-li .uploading-file-info .file-size{
+    width: 50px;
+    text-align: center;
+}
+.uploading-li .uploading-file-info .upload-pro{
+    width: 50px;
+    /*font-size: 12px;*/
+    text-align: center;
+}
+.uploading-li .uploading-file-info i{
+    height: 20px;
+    width: 20px;
+    margin: 0 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-size: 20px auto!important;
+    transition: 0.5s;
+}
+.uploading-progress .uploading-li .uploading-file-info .uploading-close{
+    background: url("/static/view_image/取消上传1.png")center center;
+    display: inline-block;
+}
+.uploading-progress .uploading-li .uploading-file-info .uploading-open{
+    background: url("/static/view_image/open_file.png")center center;
+    display: none;
+}
+.uploading-li .uploading-file-info i:hover{
+    transform: rotateZ(360deg);
+    transition: 0.5s;
+}
+
+
+.uploading-li .uploading-file-progress{
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #f0fbff;
+}
+.uploading-li .uploading-file-progress .uploading-file-value{
+    height: 100%;
+    width: 0;
+    background-color: #00FFFF;
+}
+
+
+
+.transfer_list .transfer-progress .transfer-end-progress{
+    flex: 1;
+    display: none;
+}
+
+.body_shadow{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.2);
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.body_shadow .load_icon{
+    width: 48px;
+    height: 48px;
+    background: url("/static/view_image/加载中.gif") no-repeat center center;
+    background-size: 48px;
+}
+.body_shadow .load_info{
+    font-size: 24px;
+    color: #049cdb;
+}

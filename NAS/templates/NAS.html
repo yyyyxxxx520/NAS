@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">      <!--设置编码集-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   <!--设置如果是edge浏览器就以最高规格渲染页面-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">    <!--设置页面宽度随设备宽度进行一比一缩放-->
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>文件服务器</title>
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/NAS_title.css" rel="stylesheet">
+    <link href="/static/css/NAS_left_nav.css" rel="stylesheet">
+    <link href="/static/css/NAS_right_content.css" rel="stylesheet">
+    <link href="/static/css/img_thumbnail.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="title">
+    <div class="user-info">
+        <i class="head-portrait"></i>
+        <span class="user-name">{{ user_name }} 欢迎登录</span>
+        <span class="user-close">退出</span>
+        <div class="capacity-info">
+            <div class="capacity-progress">
+                <div class="capacity-value" style="width: {{ capacityRatio }}"></div>
+            </div>
+            <div class="capacity-number">
+            <span class="capacity-used">{{ capacityUsed }}</span>
+            <span class="capacity-split">/</span>
+            <span class="capacity-total">{{ capacityTotal }}</span>
+            <span class="capacity-ratio">{{ capacityRatio }}</span>
+        </div>
+        </div>
+    </div>
+
+    <div class="transfer_list">
+        <i class="tli"></i>
+        <span class="tli">传输列表</span>
+        <div class="transfer">
+            <div class="transfer-state">
+                <div class="uploading active">
+                    正在上传中
+                </div>
+                {#                <div class="downloading">#}
+                {#                    正在下载中#}
+                {#                    <span>(1)</span>#}
+                {#                </div>#}
+                <div class="transfer-end">
+                    传输记录
+                </div>
+            </div>
+            <div class="transfer-progress">
+                <div class="progress-title">
+                    正在上传中 (
+                    <span class="progress-upload-ok">0</span>
+                    /
+                    <span class="progress-upload-all">0</span>
+                    )
+                </div>
+                <div class="uploading-progress">
+
+                </div>
+                <div class="transfer-end-progress">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="content">
+    <div class="left-nav">
+        <div class="nav home">
+            <i class="icon home-icon"></i>
+            <p class="text home-text nav-text-active">全部文件</p>
+        </div>
+        <div class="nav doc">
+            <i class="icon doc-icon"></i>
+            <p class="text doc-text">我的文档</p>
+        </div>
+        <div class="nav img">
+            <i class="icon img-icon"></i>
+            <p class="text img-text">我的图片</p>
+        </div>
+        <div class="nav video">
+            <i class="icon video-icon"></i>
+            <p class="text video-text">我的视频</p>
+        </div>
+        <div class="nav audio">
+            <i class="icon audio-icon"></i>
+            <p class="text audio-text">我的音频</p>
+        </div>
+        <div class="nav link">
+            <i class="icon link-icon"></i>
+            <p class="text link-text">种子文件</p>
+        </div>
+        <div class="nav share">
+            <i class="icon share-icon"></i>
+            <p class="text share-text">共享文件</p>
+        </div>
+        <div class="nav privacy">
+            <i class="icon privacy-icon"></i>
+            <p class="text privacy-text">隐私文件</p>
+        </div>
+
+    </div>
+    <div class="right-content">
+        {% csrf_token %}
+        <div class="top-tools">
+            <div class="tools">
+                <input type="file" class="upload-input" multiple>
+                <div class="upload-btn">
+                    <i></i>
+                    <span>上传</span>
+                    <div class="upload">
+                        <span class="upload-file">上传文件</span>
+                        <span class="upload-folder">上传文件夹</span>
+                    </div>
+                </div>
+                <div class="file-operate">
+                    <div class="operate operate-folder">
+                        <i></i>
+                        <span>新建文件夹</span>
+                    </div>
+                    <div class="operate operate-share">
+                        <i></i>
+                        <span>分享</span>
+                    </div>
+                    <div class="operate operate-download">
+                        <i></i>
+                        <span>下载</span>
+                    </div>
+                    <div class="operate operate-delete">
+                        <i></i>
+                        <span>删除</span>
+                    </div>
+                    <div class="operate operate-rename">
+                        <i></i>
+                        <span>重命名</span>
+                    </div>
+                    <div class="operate operate-move">
+                        <i></i>
+                        <span>移动</span>
+                    </div>
+                    <div class="operate operate-copy">
+                        <i></i>
+                        <span>复制</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="search">
+                <i></i>
+                <input type="text" placeholder="搜索我的文件">
+            </div>
+        </div>
+        <div class="file_breadcrumb">
+            <div class="return_previous">返回上一层</div>
+            <div class="return_previous_right"></div>
+            <div class="all_file">全部文件</div>
+            <div class="all_file_right"> ></div>
+            <div class="breadcrumb" cur_dir="{{ cur_dir }}">
+                {% for dir in dir_split %}
+                    <li>{{ dir }}</li>
+                {% endfor %}
+
+            </div>
+            <div class="load_info">
+                已加载0个
+            </div>
+        </div>
+        <div class="file-container">
+            <div class="table-header">
+                <span><input type="checkbox" class="all_check">文件名</span>
+                <span>修改时间</span>
+                <span>上传时间</span>
+                <span>大小</span>
+            </div>
+            <div class="table-file-list">
+            </div>
+            <div class="table-no-file">
+                <img src="/static/view_image/空文件.png" alt="">
+                <h3>没有文件</h3>
+            </div>
+        </div>
+        <div class="right-content-shadow">
+            <img src="/static/view_image/加载中.gif" alt="">
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<div class="move-folder-selector-dialog">
+    <div class="selector-dialog">
+        <div class="operate-type"></div>
+        <div class="folder-skip">
+            <span class="folder-skip-return">返回上一层</span>
+            <span class="folder-skip-home">返回最上层</span>
+        </div>
+        <div class="move-folder-list" cur_dir="">
+{#            <div class="move-folder">#}
+{#                <img class="dir" src="/static/view_image/dir.png" alt="">#}
+{#                <span class="folder-name">测试</span>#}
+{#            </div>#}
+
+        </div>
+        <div class="operate-btn">
+            <div class="move-close">取消</div>
+            <div class="move-action">确定</div>
+        </div>
+    </div>
+    <div class="move-folder-shadow">
+        <img src="/static/view_image/加载中.gif" alt="">
+        <span class="load_info">加载中，请勿刷新页面。。。</span>
+    </div>
+</div>
+
+<div class="body_shadow">
+    <i class="load_icon"></i>
+    <span class="load_info">加载中，请勿刷新页面。。。</span>
+</div>
+
+
+
+</body>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="/static/js/jQuery.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/layer/layer.js"></script>
+<script src="/static/js/layui/layui.js"></script>
+<script src="/static/js/js-spark-md5-master/spark-md5.min.js"></script>
+{#<script src="https://unpkg.com/axios/dist/axios.min.js"></script>#}
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/img_thumbnail.js"></script>
+<script src="/static/js/NAS.js"></script>
+<script src="/static/js/NAS_title.js"></script>
+
+
+
+</html>

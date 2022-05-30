@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
+    <title>注册</title>
+    <link href="/static/css/bootstrap.min-3.4.0.css" rel="stylesheet">
+    <link href="/static/css/font-awesome-4.3.0.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style-2.2.0.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link href="/static/css/icheck.css" rel="stylesheet">
+    <link href="/static/css/icommon.css" rel="stylesheet">
+
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
+{#    <script src="/static/js/icheck.js?v=1.0.2"></script>#}
+
+    <style>
+        .btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle){
+            border-radius: 4px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+    </style>
+
+    <style>
+        .sex_error{
+            color: #cc5965;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div class="form-signin">
+            <div id="stage">
+                <div id="inner">
+                    <div id="cover">
+                        <div id="text">
+                            <span style="color: cyan;">H</span><span style="color: white;">+</span>
+                        </div>
+                        <div id="detail"></div>
+                        <div id="handle"></div>
+                    </div>
+                    <canvas class="mb-4" id="live2d" width="800" height="800"></canvas>
+                </div>
+                <a id="info" href="javascript:info()"><i class="fa fa-lg fa-info"></i></a>
+                <a id="refresh" href="javascript:refresh()"><i class="fa fa-lg fa-refresh"></i></a>
+            </div>
+            <h3>创建一个新账户</h3>
+            <form class="m-t" id="zc" role="form" method="post" action="javascript:void(0)">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="username" type="text" class="form-control"  autocomplete="off" placeholder="请输入姓名" required="">
+                </div>
+
+                <div class="form-group btn-group" role="group" aria-label="...">
+                  <input type="hidden" id="sex" name="sex" value="">
+                  <button type="button" name="男" value="男" class="btn btn-success" style="width: 135px" onclick="btn_man()">男
+                      <img src="/static/view_image/选中.png" alt="" style="display: none">
+                  </button>
+                  <button type="button" name="女" value="女" class="btn btn-primary" style="width: 135px" onclick="btn_woman()">女
+                      <img src="/static/view_image/选中.png" alt="" style="display: none">
+                  </button>
+                  <label id="sex_error" style="display: none" class="sex_error">请输入性别</label>
+                </div>
+
+
+                <div class="form-group">
+                    <input id="pwd" name="password" type="password" class="form-control" placeholder="请输入密码" required="">
+                </div>
+                <div class="form-group">
+                    <input id="confirm" name="confirm" type="password" class="form-control" placeholder="请再次输入密码" required="">
+                </div>
+                <div class="form-group">
+                    <input name="authorization" type="text" class="form-control" placeholder="请输入授权码">
+                </div>
+                
+                <button type="submit" class="btn btn-primary block full-width m-b">注 册</button>
+
+                <p class="text-muted text-center"><small>已经有账户了？</small><a href="/login/">点此登录</a>
+                </p>
+                <img src="/static/view_image/1.gif" style="width: 100%;">
+            </form>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/bootstrap.min-3.4.0.js"></script>
+    <!-- iCheck -->
+    <script src="/static/js/icheck.min.js"></script>
+    <!-- Jquery Validate -->
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="/static/js/layer/layer.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $("#zc").validate({
+                rules: {
+                    confirm: {
+                        equalTo: "#pwd"
+                    }
+                },
+                messages: {
+                    username: {
+                        required: "请输入您的用户名"
+                    },
+                    password: {
+                        required: "请输入您的密码"
+                    },
+                    confirm: {
+                        required: "请再次输入您的密码",
+                        equalTo: "两次输入的密码不一致"
+                    },
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function stop() {
+            return false;
+        }
+        document.oncontextmenu = stop;
+    </script>
+    <script src="/static/js/live2d.min.js"></script>
+    <script src="/static/js/index.js"></script>
+    <script>
+        var btn = $('button')
+        function btn_man() {
+
+            btn.eq(0).addClass('clicked')
+            btn.eq(1).removeClass('clicked')
+            btn.eq(0).children().css({"display":""});
+            btn.eq(1).children().css({"display":"none"});
+            $('#sex').val('男');
+            $('#sex_error').css('display', 'none');
+        }
+        function btn_woman() {
+            btn.eq(1).addClass('clicked')
+            btn.eq(0).removeClass('clicked')
+            btn.eq(1).children().css({"display":""});
+            btn.eq(0).children().css({"display":"none"});
+            $('#sex').val('女');
+            $('#sex_error').css('display', 'none');
+        }
+        $('button[type=submit]').click(function () {
+            var username = $('input[name=username]').val();
+            var sex = $('input[name=sex]').val();
+            var password = $('input[name=password]').val();
+            var confirm = $('input[name=confirm]').val();
+            var authorization = $('input[name=authorization]').val();
+
+            if ($('#sex').val().length < 1){
+                $('#sex_error').removeAttr('style');
+            }else if(username.length < 1 || password.length<1 || confirm.length < 1 || confirm != password){return}
+            else{
+                $.ajax({
+                    type:'post',
+                    data:{
+                        username: username,
+                        sex: sex,
+                        password: password,
+                        confirm: confirm,
+                        authorization: authorization,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                    success:function (result) {
+                        if (result['code'] == 0){
+                            layer.alert(result['mes']);
+                        }
+                        else {
+                            console.log('----------------')
+                            layer.alert(result['mes'], {'icon':6}, function () {
+                                window.location.href = result['url'];
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

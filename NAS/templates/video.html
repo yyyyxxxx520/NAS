@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>视频播放器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{#    <link rel="stylesheet" href="/static/css/hivideo.css" />#}
+{#    <script type="text/javascript" src="/static/js/hivideo.js"></script>#}
+{#    https://www.cnblogs.com/wzzyuxi/p/11399884.html#}
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .main-wrap{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-wrap video{
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .div-shadow{
+            position: fixed;
+            z-index: 999;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .load{
+            width: 240px;
+            height: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .load_icon{
+            width: 28px;
+        }
+        .load_info{
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrap">
+        <video name="media" controls autoplay >
+            <source src="{{ url }}&html=1" type="video/mp4">
+        </video>
+    </div>
+<div class="div-shadow">
+    <div class="load">
+        <img src="/static/view_image/loading.gif" alt="" class="load_icon">
+        <span class="load_info">正在转码中，请稍后！！！</span>
+    </div>
+</div>
+</body>
+
+{#<script src="/static/js/axios.min.js"></script>#}
+{#<script src="/static/js/layer/layer.js"></script>#}
+{#<script src="/static/js/layui/layui.js"></script>#}
+<script>
+
+</script>
+</html>
