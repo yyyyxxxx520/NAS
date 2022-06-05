@@ -1,0 +1,115 @@
+@media screen and (max-width: 880px) {  /*表示如果窗口大小不超过880，则使用这个样式*/
+
+    .left-nav{
+        display: none;
+    }
+    .file_breadcrumb{
+        width: 100vw!important;
+    }
+    .transfer_list span{
+        font-size: 10px!important;
+        width: 40px;
+    }
+    .capacity-number *{
+        font-size: 4px!important;
+    }
+    .title{
+        height: 40px;
+        padding: 0 5px;
+    }
+    .title .user-info{
+        font-size: 12px;
+    }
+    .transfer{
+        left: -300% !important;
+        font-size: 10px;
+    }
+    .uploading {
+        padding: 0!important;
+    }
+    .file_breadcrumb{
+        padding: 0 5px;
+        font-size: 10px;
+    }
+    .top-tools{
+        height: 40px;
+        justify-content: flex-start;
+    }
+    .tools{
+        flex: 1;
+        padding: 0 0 0 5px;
+    }
+    .search{
+        width: 100px;
+        margin-right: 5px;
+    }
+    .search i{
+        width: 20px;
+        background-size: 20px;
+        margin: 0 4px;
+    }
+    .search input{
+        font-size: 12px;
+        width: 80px;
+        padding: 0 5px 0 0;
+    }
+    .upload-btn{
+        height: 30px;
+        width: 70px;
+    }
+    .upload-btn i{
+        width: 14px;
+        height: 14px;
+        background-size: 14px;
+    }
+    .upload-btn span{
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .file-container{
+        padding: 0 5px;
+    }
+    .file-operate{
+        margin: 0 5px;
+        padding: 0 4px;
+        height: 25px;
+    }
+    .file-operate *:first-child{
+        width: 65px!important;
+        font-size: 12px;
+    }
+    .operate-rename,.operate-download,
+    .operate-delete,.operate-rename,.operate-move,.operate-copy{
+        width: 40px!important;
+        font-size: 12px;
+    }
+    .operate-share,.operate-move,.operate-copy{
+        display: none;
+    }
+
+
+
+
+
+    .right-content{
+        width: 95vw!important;
+    }
+
+    .table-file{
+        /*justify-content: flex-start;*/
+    }
+    .table-header span:not(:first-child){
+        display: none;
+    }
+
+    .file-info{
+        max-width: 75% !important;
+        width: 75%!important;
+    }
+    .file-size{
+        width: 20%!important;
+    }
+    .file-change-date,.change-operate,.file-upload-date{
+        display: none;
+    }
+}
