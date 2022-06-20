@@ -290,7 +290,7 @@
     max-width: 48%;
 }
 
-.file-container .table-header span:last-child {
+.file-container .table-header >span:last-child {
     width: 10%;
 }
 
@@ -302,6 +302,10 @@
 }
 .file-container .table-header input{
     margin-right: 10px;
+}
+
+.file-container .table-header .file-name-header{
+    width: 60px;
 }
 
 .file-container input {

@@ -362,6 +362,7 @@ def NAS(request):
         cur_dir = request.GET.get('cur_dir', '').strip('\\')
         state = request.GET.get('state', None)
         standby = request.GET.get('standby', None)
+        sort = request.GET.get('sort', '')
         start = request.GET.get('start', 0)
         # 如果没有该文件夹，则直接跳转至首页
         if not os.path.exists(os.path.join(nas_dir, cur_dir)):

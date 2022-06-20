@@ -25,6 +25,7 @@ let token = $('.right-content [name=csrfmiddlewaretoken]').val(),
     search = document.querySelector('.top-tools .search'),
     search_input = search.querySelector('input'),
     table_file_list = document.querySelector('.table-file-list'),
+    table_header = document.querySelector('.file-container .table-header'),
     file_breadcrumb = document.querySelector('.file_breadcrumb'),
     breadcrumb = file_breadcrumb.querySelector('.breadcrumb'),
     return_previous = document.querySelector('.return_previous'),
@@ -331,6 +332,148 @@ function top_tools_fun() {
 // 文件显示栏方法
 function file_list_fun() {
     var interval_time = new Date().getTime() - 1000;
+
+    table_header.addEventListener('click', async function (ev) {
+        switch (ev.target.className){
+            case 'file-name-header':
+                start_sort('.file-name-header');
+                break;
+            case 'change-date-header':
+                console.log('修改时间排序');
+                start_sort('.change-date-header');
+                break;
+            case 'upload-date-header':
+                console.log('上传时间排序');
+                start_sort('.upload-date-header');
+                break;
+            case 'file-size-header':
+                console.log('文件大小排序');
+                start_sort('.file-size-header');
+                break;
+        }
+        function start_sort(class_name) {
+            let file_header = table_header.querySelector(class_name);
+            if (file_header.getAttribute('id') !== '1'){
+                sort(class_name, );
+                file_header.setAttribute('id', '1');
+            }
+            else{
+                sort(class_name, 'little');
+                file_header.setAttribute('id', '0');
+            }
+        }
+        function sort(class_name,orientation = 'big') {
+            let table_file = table_file_list.querySelectorAll('.table-file');
+            let file_name_list = new Array;
+            let dir_name_list = new Array;
+            let table_file_list_new = new Array();
+            let table_dir_list_new = new Array();
+            for (let i=0;i<table_file.length;i++){
+                let name = ''
+                if (class_name === '.file-name-header'){
+                    name = table_file[i].querySelector('.file-name').innerText;
+                }
+                else if (class_name === '.change-date-header'){
+                    name = table_file[i].querySelector('.change-date').innerText;
+                }
+                else if (class_name === '.upload-date-header'){
+                    name = table_file[i].querySelector('.file-upload-date').innerText;
+                }
+                else if (class_name === '.file-size-header'){
+                    name = table_file[i].querySelector('.file-size').innerText;
+                    let par_name = '';
+                    if (name.indexOf("B") !== -1){
+                        par_name = parseFloat(name.slice(0,-2))
+                    }
+                    if (name.indexOf("KB") !== -1){
+                        name = parseFloat(par_name) * 1024
+                    }
+                    else if (name.indexOf("MB") !== -1){
+                        name = parseFloat(par_name) * 1024 * 1024
+                    }
+                    else if (name.indexOf("GB") !== -1){
+                        name = parseFloat(par_name) * 1024 * 1024 * 1024
+                    }
+                    else if (name.indexOf("TB") !== -1){
+                        name = parseFloat(par_name) * 1024 * 1024 * 1024 * 1024
+                    }
+                }
+                if (table_file[i].querySelector('.file-info i').className === 'dir'){
+                    dir_name_list.push(name);
+                    table_dir_list_new.push(table_file_list.childNodes[i])
+                }
+                else{
+                    file_name_list.push(name);
+                    table_file_list_new.push(table_file_list.childNodes[i])
+                }
+
+            }
+            for (let i=0;i<file_name_list.length - 1;i++){
+                for (let j=i+1;j<file_name_list.length;j++){
+                    if (orientation === 'big') {
+                        if (file_name_list[i] < file_name_list[j]) {
+                            let temp = file_name_list[i];
+                            file_name_list[i] = file_name_list[j];
+                            file_name_list[j] = temp;
+
+                            let temp_table = table_file_list_new[i];
+                            table_file_list_new[i] = table_file_list_new[j];
+                            table_file_list_new[j] = temp_table;
+                        }
+                    }else{
+                        if (file_name_list[i] > file_name_list[j]) {
+                            let temp = file_name_list[i];
+                            file_name_list[i] = file_name_list[j];
+                            file_name_list[j] = temp;
+
+                            let temp_table = table_file_list_new[i];
+                            table_file_list_new[i] = table_file_list_new[j];
+                            table_file_list_new[j] = temp_table;
+                        }
+                    }
+                }
+            }
+            for (let i=0;i<dir_name_list.length - 1;i++){
+                for (let j=i+1;j<dir_name_list.length;j++){
+                    if (orientation === 'big'){
+                        if (dir_name_list[i] < dir_name_list[j]){
+                        let temp = dir_name_list[i];
+                        dir_name_list[i] = dir_name_list[j];
+                        dir_name_list[j] = temp;
+
+                        let temp_table = table_dir_list_new[i];
+                        table_dir_list_new[i] = table_dir_list_new[j];
+                        table_dir_list_new[j] = temp_table;
+                    }
+                    }else{
+                        if (dir_name_list[i] > dir_name_list[j]){
+                        let temp = dir_name_list[i];
+                        dir_name_list[i] = dir_name_list[j];
+                        dir_name_list[j] = temp;
+
+                        let temp_table = table_dir_list_new[i];
+                        table_dir_list_new[i] = table_dir_list_new[j];
+                        table_dir_list_new[j] = temp_table;
+                    }
+                    }
+
+                }
+            }
+            // 删除原有数据
+            while (table_file_list.hasChildNodes()) {
+                table_file_list.removeChild(table_file_list.lastChild);
+            }
+            // 添加排序后
+            for (let i=0;i<table_dir_list_new.length;i++){
+                table_file_list.append(table_dir_list_new[i])
+            }
+            for (let i=0;i<table_file_list_new.length;i++){
+                table_file_list.append(table_file_list_new[i])
+            }
+
+        }
+    })
+
     // 点击文件列表事件
     table_file_list.addEventListener('click', async function (ev) {
         switch (ev.target.className) {

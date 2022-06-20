@@ -359,13 +359,17 @@ def read_xlrd(filepath):
 
 # {'Sheet1': ['1-2:3-2', '5-4:5-7']}
 #            [(1, 2, 0, 3), (3, 7, 4, 5)]
-print(read_xlrd(r'C:\Users\yx\Desktop\项目图片\新建文件夹\新建 XLSX 工作表.xls'))
-import win32com.client as win32
+# print(read_xlrd(r'C:\Users\yx\Desktop\项目图片\新建文件夹\新建 XLSX 工作表.xls'))
+# import win32com.client as win32
+#
+# fname = r'C:\Users\yx\Desktop\项目图片\新建文件夹\新建 XLSX 工作表.xls'
+# excel = win32.gencache.EnsureDispatch('Excel.Application')
+# wb = excel.Workbooks.Open(fname)
+#
+# wb.SaveAs(fname+"x", FileFormat = 51)    #FileFormat = 51 is for .xlsx extension
+# wb.Close()                               #FileFormat = 56 is for .xls extension
+# excel.Application.Quit()
+for i in range(1, 10):
+    print(i)
 
-fname = r'C:\Users\yx\Desktop\项目图片\新建文件夹\新建 XLSX 工作表.xls'
-excel = win32.gencache.EnsureDispatch('Excel.Application')
-wb = excel.Workbooks.Open(fname)
 
-wb.SaveAs(fname+"x", FileFormat = 51)    #FileFormat = 51 is for .xlsx extension
-wb.Close()                               #FileFormat = 56 is for .xls extension
-excel.Application.Quit()

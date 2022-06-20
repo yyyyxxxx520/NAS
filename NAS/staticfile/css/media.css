@@ -98,8 +98,17 @@
     .table-file{
         /*justify-content: flex-start;*/
     }
-    .table-header span:not(:first-child){
+    .table-header >span:not(:first-child,:last-child){
         display: none;
+    }
+    .table-header >span:first-child{
+        max-width: 75% !important;
+        width: 75%!important;
+    }
+    .table-header >span:last-child{
+        max-width: 25% !important;
+        width: 25%!important;
+        padding: 0 10px;
     }
 
     .file-info{
@@ -107,7 +116,8 @@
         width: 75%!important;
     }
     .file-size{
-        width: 20%!important;
+        width: 25%!important;
+        padding: 0 10px;
     }
     .file-change-date,.change-operate,.file-upload-date{
         display: none;
